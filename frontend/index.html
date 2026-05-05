@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SmartFlow AI</title>
+<style>body{font-family:Arial;margin:0;background:#0f172a;color:#e2e8f0}header{padding:16px;background:#1e293b}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:16px}.card{background:#1e293b;padding:16px;border-radius:12px}input,select,button{padding:8px;margin:4px 0;width:100%}</style></head>
+<body>
+<header><h1>SmartFlow AI</h1></header>
+<div class="grid">
+<div class="card"><h3>Создать задачу</h3><input id="uid" placeholder="User ID" value="1"/><input id="title" placeholder="Название"/><button onclick="createTask()">Создать</button></div>
+<div class="card"><h3>Голосовой помощник</h3><input id="voice" placeholder="Например: Создай задачу"/><button onclick="voiceCmd()">Отправить</button><pre id="voiceOut"></pre></div>
+<div class="card"><h3>Уведомления</h3><button onclick="notifyTest()">Тест уведомления</button><pre id="notifOut"></pre></div>
+<div class="card"><h3>Задачи</h3><button onclick="loadTasks()">Обновить</button><pre id="tasks"></pre></div>
+</div>
+<script>
+const API='http://localhost:8000/api/v1';
+async function createTask(){const user_id=Number(uid.value);const res=await fetch(`${API}/tasks`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user_id,title:title.value,status:'Новая',priority:'Средний'})});alert('Создано');}
+async function loadTasks(){const res=await fetch(`${API}/tasks?user_id=${uid.value}`);tasks.textContent=JSON.stringify(await res.json(),null,2)}
+async function voiceCmd(){const res=await fetch(`${API}/voice/process`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({command_text:voice.value})});voiceOut.textContent=JSON.stringify(await res.json(),null,2)}
+async function notifyTest(){const res=await fetch(`${API}/notifications/test`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({channel:'browser_push',message:'Пора сделать задачу'})});notifOut.textContent=JSON.stringify(await res.json(),null,2)}
+</script></body></html>
