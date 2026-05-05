@@ -22,3 +22,8 @@
 - Supertest
 
 ## Infra
+
+- Docker
+- Docker Compose
+- PostgreSQL
+

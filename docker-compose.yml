@@ -1,0 +1,24 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env.example
+  frontend:
+    build: ./frontend
+    ports:
+
+      - "3000:80"
+
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000/api/v1
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: smartflow
+      POSTGRES_USER: smartflow
+      POSTGRES_PASSWORD: smartflow
+    ports:
+      - "5432:5432"

@@ -3,7 +3,13 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from src.api.router import api_router
 from src.core.config import settings
+
 from src.database.db import Base, engine
+
+
+from src.database.db import Base, engine
+
+
 
 app = FastAPI(title=settings.app_name)
 
@@ -23,6 +29,12 @@ def health() -> dict[str, str]:
     return {"status": "ok"}
 
 
+
 @app.on_event("startup")
 def on_startup() -> None:
     Base.metadata.create_all(bind=engine)
+
+@app.on_event("startup")
+def on_startup() -> None:
+    Base.metadata.create_all(bind=engine)
+
