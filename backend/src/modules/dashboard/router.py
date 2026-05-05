@@ -11,9 +11,9 @@ router = APIRouter()
 
 @router.get('/stats')
 def stats(user_id: int = Query(...), db: Session = Depends(get_db)):
-    active = db.query(func.count(Task.id)).filter(Task.user_id == user_id, Task.status != 'Выполнена', Task.deleted_at.is_(None)).scalar()
-    completed = db.query(func.count(Task.id)).filter(Task.user_id == user_id, Task.status == 'Выполнена', Task.deleted_at.is_(None)).scalar()
-    overdue = db.query(func.count(Task.id)).filter(Task.user_id == user_id, Task.status == 'Просрочена', Task.deleted_at.is_(None)).scalar()
+    active = db.query(func.count(Task.id)).filter(Task.user_id == user_id, Task.status != 'Done', Task.deleted_at.is_(None)).scalar()
+    completed = db.query(func.count(Task.id)).filter(Task.user_id == user_id, Task.status == 'Done', Task.deleted_at.is_(None)).scalar()
+    overdue = db.query(func.count(Task.id)).filter(Task.user_id == user_id, Task.status == 'Overdue', Task.deleted_at.is_(None)).scalar()
     total = max(active + completed, 1)
     return {'active': active, 'completed': completed, 'overdue': overdue, 'completion_rate': round(completed / total * 100, 2)}
 

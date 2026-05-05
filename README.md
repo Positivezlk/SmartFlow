@@ -1,18 +1,18 @@
 # SmartFlow AI
 
-Каркас веб-приложения для управления задачами.
+Task management web app scaffold.
 
 ## Backend (FastAPI)
-- REST API с префиксом `/api/v1`
-- Модули: auth, tasks, categories, dashboard
-- Mock модули: voice, notifications
+- REST API with prefix `/api/v1`
+- Modules: auth, tasks, categories, dashboard
+- Mock modules: voice, notifications
 
-## Запуск
+## Run
 ```bash
 docker compose up --build
 ```
 
-## Основные endpoint'ы
+## Main endpoints
 - Auth: `/auth/register`, `/auth/login`, `/auth/refresh`, `/auth/logout`, `/auth/me`
 - Tasks: `GET/POST/PATCH/DELETE /tasks`
 - Categories: `GET/POST/PATCH/DELETE /categories`

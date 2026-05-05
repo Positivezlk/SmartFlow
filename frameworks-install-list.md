@@ -1,4 +1,4 @@
-# Frameworks / Libraries для установки
+# Frameworks / Libraries to install
 
 ## Backend
 - FastAPI
@@ -13,7 +13,7 @@
 - Next.js
 - TypeScript
 - TailwindCSS
-- Zustand (или Redux Toolkit)
+- Zustand (or Redux Toolkit)
 
 ## Testing
 - pytest

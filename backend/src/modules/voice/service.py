@@ -1,11 +1,11 @@
 class VoiceService:
     def parse_command(self, payload: dict) -> dict:
         text = payload.get('command_text', '').lower()
-        if 'создай задачу' in text:
+        if 'create task' in text:
             intent = 'create_task'
-        elif 'на сегодня' in text:
+        elif 'today' in text:
             intent = 'tasks_today'
-        elif 'выполненной' in text:
+        elif 'completed' in text:
             intent = 'complete_task'
         else:
             intent = 'unknown'
@@ -13,4 +13,4 @@ class VoiceService:
 
     def process(self, payload: dict) -> dict:
         parsed = self.parse_command(payload)
-        return {'status': 'processed', 'parsed': parsed, 'message': 'Команда обработана'}
+        return {'status': 'processed', 'parsed': parsed, 'message': 'Command processed'}

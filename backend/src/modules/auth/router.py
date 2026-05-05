@@ -25,7 +25,7 @@ class LoginPayload(BaseModel):
 @router.post('/register')
 def register(payload: RegisterPayload, db: Session = Depends(get_db)):
     if db.query(User).filter(User.email == payload.email).first():
-        raise HTTPException(400, 'Email уже используется')
+        raise HTTPException(400, 'Email already exists')
     user = User(username=payload.username, email=payload.email, password_hash=hash_password(payload.password))
     db.add(user)
     db.commit()
@@ -37,7 +37,7 @@ def register(payload: RegisterPayload, db: Session = Depends(get_db)):
 def login(payload: LoginPayload, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == payload.email).first()
     if not user or not verify_password(payload.password, user.password_hash):
-        raise HTTPException(401, 'Неверные данные')
+        raise HTTPException(401, 'Invalid credentials')
     return {'access_token': create_token(str(user.id)), 'refresh_token': create_token(str(user.id), refresh=True)}
 
 
@@ -53,7 +53,7 @@ def refresh(payload: dict):
 
 @router.post('/logout')
 def logout():
-    return {'message': 'Токены удалены на клиенте'}
+    return {'message': 'Tokens removed on client'}
 
 
 @router.get('/me')
