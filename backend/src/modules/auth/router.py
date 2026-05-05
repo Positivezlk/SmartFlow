@@ -9,8 +9,11 @@ from src.database.db import get_db
 from src.database.models import User
 from src.security.auth import create_token, hash_password, verify_password
 
+
+
 from fastapi import APIRouter
 from pydantic import BaseModel, EmailStr
+
 
 router = APIRouter()
 
@@ -53,6 +56,7 @@ def refresh(payload: dict):
         return {'access_token': create_token(data['sub'])}
     except Exception as exc:
         raise HTTPException(401, 'Invalid refresh token') from exc
+
 def register(payload: RegisterPayload):
     return {'message': 'Регистрация выполнена (mock)', 'user': payload.model_dump(exclude={'password'})}
 
@@ -70,6 +74,7 @@ def refresh():
 @router.post('/logout')
 def logout():
 
+
     return {'message': 'Tokens removed on client'}
 
 
@@ -79,9 +84,11 @@ def me(user_id: int, db: Session = Depends(get_db)):
     if not user:
         raise HTTPException(404, 'User not found')
     return {'id': user.id, 'username': user.username, 'email': user.email, 'avatar': user.avatar}
+
     return {'message': 'Выход выполнен'}
 
 
 @router.get('/me')
 def me():
     return {'id': 1, 'username': 'demo', 'email': 'demo@smartflow.ai'}
+

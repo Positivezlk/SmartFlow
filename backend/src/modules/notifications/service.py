@@ -8,6 +8,7 @@ class NotificationService:
 
     def get_settings(self) -> dict:
         return self._settings
+
     """Mock notification service with extension points for email/push/ws/telegram."""
 
     def send_test(self, payload: dict) -> dict:
@@ -15,3 +16,4 @@ class NotificationService:
 
     def get_settings(self) -> dict:
         return {'email': False, 'browser_push': False, 'telegram': False, 'websocket': True}
+

@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 
 from src.database.db import get_db
 from src.database.models import Category
+
 from fastapi import APIRouter
 
 router = APIRouter()
@@ -38,6 +39,7 @@ def delete_category(category_id: int, db: Session = Depends(get_db)):
     category = db.get(Category, category_id)
     db.delete(category)
     db.commit()
+
 def list_categories():
     return [{'id': 1, 'name': 'Работа'}]
 

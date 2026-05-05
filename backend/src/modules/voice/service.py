@@ -14,6 +14,7 @@ class VoiceService:
     def process(self, payload: dict) -> dict:
         parsed = self.parse_command(payload)
         return {'status': 'processed', 'parsed': parsed, 'message': 'Command processed'}
+
     """Mock voice service. Extension point for STT, AI parser and TTS."""
 
     def parse_command(self, payload: dict) -> dict:

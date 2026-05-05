@@ -6,7 +6,9 @@ from sqlalchemy.orm import Session
 
 from src.database.db import get_db
 from src.database.models import Task
+
 from fastapi import APIRouter
+
 
 router = APIRouter()
 
@@ -29,6 +31,7 @@ def today(user_id: int = Query(...), db: Session = Depends(get_db)):
 @router.get('/upcoming')
 def upcoming(user_id: int = Query(...), db: Session = Depends(get_db)):
     return db.query(Task).filter(Task.user_id == user_id, Task.deleted_at.is_(None)).order_by(Task.deadline.asc()).limit(5).all()
+
 def stats():
     return {'active': 5, 'completed': 12, 'overdue': 2, 'completion_rate': 70}
 

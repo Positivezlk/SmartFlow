@@ -55,6 +55,7 @@ def delete_task(task_id: int, db: Session = Depends(get_db)):
         raise HTTPException(404, 'Task not found')
     task.deleted_at = datetime.utcnow()
     db.commit()
+
 from fastapi import APIRouter
 
 router = APIRouter()
